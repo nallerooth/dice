@@ -20,17 +20,27 @@ func New() *Dice {
 	return &d
 }
 
-// Roll will take a DiceString, parse it and then proceed to make the
-// proper rolls, returning a result
-func (d *Dice) RollDetailed(dicestr string) (*dicePool, error) {
-	var dp *dicePool
+// RollDetailed takes a DiceString and returns a dicePool
+func (d *Dice) RollDetailed(dicestr string) (*DicePool, error) {
+	var dp *DicePool
 	var err error
 
 	if dp, err = parseDiceString(dicestr); err != nil {
 		return nil, fmt.Errorf("Dice Error: %s\n", err)
 	}
 
-	dp.Roll(d.rng)
+	dp.roll(d.rng)
 
 	return dp, nil
+}
+
+// RollSum takes a DiceString and returns the sum of the dice,
+// including any modifiers
+func (d *Dice) RollSum(dicestr string) (int, error) {
+	dp, err := d.RollDetailed(dicestr)
+	if err != nil {
+		return 0, err
+	}
+
+	return dp.Sum(), nil
 }

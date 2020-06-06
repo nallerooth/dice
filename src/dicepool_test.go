@@ -7,11 +7,11 @@ import (
 )
 
 func TestDicePoolSum(t *testing.T) {
-	testCases := map[int]dicePool{
-		12: dicePool{rolled: []int{3, 4, 5}},
-		20: dicePool{rolled: []int{12, 1, 7}},
-		22: dicePool{rolled: []int{12, 1, 7}, modifier: 2},
-		18: dicePool{rolled: []int{12, 1, 7}, modifier: -2},
+	testCases := map[int]DicePool{
+		12: DicePool{Rolled: []int{3, 4, 5}},
+		20: DicePool{Rolled: []int{12, 1, 7}},
+		22: DicePool{Rolled: []int{12, 1, 7}, Modifier: 2},
+		18: DicePool{Rolled: []int{12, 1, 7}, Modifier: -2},
 	}
 
 	for expected, dp := range testCases {
@@ -24,22 +24,22 @@ func TestDicePoolSum(t *testing.T) {
 }
 
 func TestDicePoolNormalRoll(t *testing.T) {
-	dp := dicePool{numDice: 3, numSides: 6}
+	dp := DicePool{NumDice: 3, NumSides: 6}
 	exp := []int{3, 5, 6} // Sorted rolls
-	dp.Roll(getRNG())
-	if reflect.DeepEqual(dp.rolled, exp) == false {
-		t.Logf("Normal roll failed, expected %v, got %v", exp, dp.rolled)
+	dp.roll(getRNG())
+	if reflect.DeepEqual(dp.Rolled, exp) == false {
+		t.Logf("Normal roll failed, expected %v, got %v", exp, dp.Rolled)
 		t.Fail()
 	}
 }
 
 func TestDicePoolExplodingRoll(t *testing.T) {
 
-	dp := dicePool{numDice: 4, numSides: 6, exploding: true}
+	dp := DicePool{NumDice: 4, NumSides: 6, Exploding: true}
 	exp := []int{3, 3, 5, 5, 6, 6} // Sorted rolls
-	dp.Roll(getRNG())
-	if reflect.DeepEqual(dp.rolled, exp) == false {
-		t.Logf("Exploding roll failed, expected %v, got %v", exp, dp.rolled)
+	dp.roll(getRNG())
+	if reflect.DeepEqual(dp.Rolled, exp) == false {
+		t.Logf("Exploding roll failed, expected %v, got %v", exp, dp.Rolled)
 		t.Fail()
 	}
 }

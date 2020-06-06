@@ -6,19 +6,19 @@ import (
 
 func TestParseDiceString(t *testing.T) {
 	var err error
-	var dp *dicePool
+	var dp *DicePool
 
-	testCases := map[string]dicePool{
-		"3d6":    dicePool{numDice: 3, numSides: 6},
-		"12d6":   dicePool{numDice: 12, numSides: 6},
-		"4d2":    dicePool{numDice: 4, numSides: 2},
-		"5d20":   dicePool{numDice: 5, numSides: 20},
-		"3d6+0":  dicePool{numDice: 3, numSides: 6},
-		"3d6-0":  dicePool{numDice: 3, numSides: 6},
-		"3d6+2":  dicePool{numDice: 3, numSides: 6, modifier: 2},
-		"3d6-2":  dicePool{numDice: 3, numSides: 6, modifier: -2},
-		"3d6!":   dicePool{numDice: 3, numSides: 6, exploding: true},
-		"3d6+1!": dicePool{numDice: 3, numSides: 6, modifier: 1, exploding: true},
+	testCases := map[string]DicePool{
+		"3d6":    DicePool{NumDice: 3, NumSides: 6},
+		"12d6":   DicePool{NumDice: 12, NumSides: 6},
+		"4d2":    DicePool{NumDice: 4, NumSides: 2},
+		"5d20":   DicePool{NumDice: 5, NumSides: 20},
+		"3d6+0":  DicePool{NumDice: 3, NumSides: 6},
+		"3d6-0":  DicePool{NumDice: 3, NumSides: 6},
+		"3d6+2":  DicePool{NumDice: 3, NumSides: 6, Modifier: 2},
+		"3d6-2":  DicePool{NumDice: 3, NumSides: 6, Modifier: -2},
+		"3d6!":   DicePool{NumDice: 3, NumSides: 6, Exploding: true},
+		"3d6+1!": DicePool{NumDice: 3, NumSides: 6, Modifier: 1, Exploding: true},
 	}
 
 	for dicestr, expected := range testCases {
@@ -27,27 +27,27 @@ func TestParseDiceString(t *testing.T) {
 			t.Fail()
 		}
 
-		if dp.numDice != expected.numDice {
+		if dp.NumDice != expected.NumDice {
 			t.Logf("Test case [%s] failed: Expected %d dice, got %d\n",
-				dicestr, expected.numDice, dp.numDice)
+				dicestr, expected.NumDice, dp.NumDice)
 			t.Fail()
 		}
 
-		if dp.numSides != expected.numSides {
+		if dp.NumSides != expected.NumSides {
 			t.Logf("Test case [%s] failed: Expected %d sides, got %d\n",
-				dicestr, expected.numSides, dp.numSides)
+				dicestr, expected.NumSides, dp.NumSides)
 			t.Fail()
 		}
 
-		if dp.modifier != expected.modifier {
+		if dp.Modifier != expected.Modifier {
 			t.Logf("Test case [%s] failed: Expected modifier %+d, got %+d\n",
-				dicestr, expected.modifier, dp.modifier)
+				dicestr, expected.Modifier, dp.Modifier)
 			t.Fail()
 		}
 
-		if dp.exploding != expected.exploding {
+		if dp.Exploding != expected.Exploding {
 			t.Logf("Test case [%s] failed: Expected exploding %t, got %t\n",
-				dicestr, expected.exploding, dp.exploding)
+				dicestr, expected.Exploding, dp.Exploding)
 			t.Fail()
 		}
 	}
