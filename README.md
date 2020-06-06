@@ -1,3 +1,3 @@
 # Dice
 
-A simple dice roller written in Go
+A simple dice roller written in Go.
